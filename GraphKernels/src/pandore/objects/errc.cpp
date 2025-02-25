@@ -17,8 +17,8 @@
 
 /**
  * @author Alexandre Duret-Lutz. 1999-10-08
- * @author Régis Clouard - 2001-04-10 (version 3.00)
- * @author Régis Clouard - 2006-09-05 (fix buf on Visual C++ 6)
+ * @author Rï¿½gis Clouard - 2001-04-10 (version 3.00)
+ * @author Rï¿½gis Clouard - 2006-09-05 (fix buf on Visual C++ 6)
  */
 
 /**
@@ -99,7 +99,7 @@ void pandore::Exit( Char statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("0",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Char),1,fp);
       fclose(fp);
@@ -120,7 +120,7 @@ void pandore::Exit( Short statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("1",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Short),1,fp);
       fclose(fp);
@@ -141,7 +141,7 @@ void pandore::Exit( Long statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("2",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Long),1,fp);
       fclose(fp);
@@ -162,7 +162,7 @@ void pandore::Exit( Uchar statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("3",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Uchar),1,fp);
       fclose(fp);
@@ -183,7 +183,7 @@ void pandore::Exit( Ushort statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("4",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Ushort),1,fp);
       fclose(fp);
@@ -204,7 +204,7 @@ void pandore::Exit( Ulong statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("5",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Ulong),1,fp);
       fclose(fp);
@@ -225,7 +225,7 @@ void pandore::Exit( Float statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("6",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Float),1,fp);
       fclose(fp);
@@ -246,7 +246,7 @@ void pandore::Exit( Double statut ) {
    if (!(dir=getenv(HOME))) exit(2);
    strcpy(nomf,dir);
    strcat(nomf,RESFIL);
-   if ((fp=fopen(nomf,"wb"))>0){
+   if ((fp=fopen(nomf,"wb")) != 0){
       fwrite("7",sizeof(Char),1,fp);
       fwrite(&statut,sizeof(Double),1,fp);
       fclose(fp);

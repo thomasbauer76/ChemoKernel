@@ -1,6 +1,7 @@
 #include <cstring>
 #include <stack>
 #include <sstream>
+#include <algorithm>
 #include "TreeletEnumerator.h"
 #include "string_utils.h"
 #include "utils.h"
@@ -92,12 +93,22 @@ string pairToChar(const pair< string,string > * pair_list, int nb_pair){
 
 int compPair(const void * l, const void * r)
 {
-  int c_edge = ((pair<string,string> *)l)->first.compare(((pair<string,string> *)r)->first);
-  if(c_edge == 0)
-    return ((pair<string,string> *)l)->second.compare(((pair<string,string> *)r)->second);
-  else 
+  pair<string, string> *left = (pair<string, string> *)l;
+  pair<string, string> *right = (pair<string, string> *)r;
+  int c_edge = left->first.compare(right->first);
+  if(c_edge == 0){
+    return left->second.compare(right->second);
+  }
+  else {
     return c_edge;
+  }
 }
+
+struct CompPairWrapper {
+  bool operator()(const pair<string, string>& a, const pair<string, string>& b) const {
+      return compPair(&a, &b) < 0;
+  }
+};
 
 pair<string, string> * pairSort(const pair<string, string> * to_sort, int nb_pair)
 {
@@ -106,7 +117,9 @@ pair<string, string> * pairSort(const pair<string, string> * to_sort, int nb_pai
     sort_pair[i].first = to_sort[i].first;
     sort_pair[i].second = to_sort[i].second;
   }
-  qsort (sort_pair,nb_pair,sizeof(pair<string, string>),compPair);
+
+  sort(sort_pair, sort_pair + nb_pair, CompPairWrapper());
+
   return sort_pair;  
 }
 
@@ -450,14 +463,14 @@ void TreeletEnumerator::enumerate4StarsGraphs(GNode<Point3d> * star_center, int 
   	  int valence = utils::nbNeighbours(item_neighbours[stars_items[i][j]],g);
   	  if (valence > 1)
   	    {//G11 : 4 star + leaf (Factorisable avec G7)
-  	      GEdge * v = g[item_neighbours[stars_items[i][j]]]->Neighbours();
+          GEdge * v = g[item_neighbours[stars_items[i][j]]]->Neighbours();
   	      while(v != NULL)
   		{
   		  if((g[v->Node()] != star_center) && (flags_visited[v->Node()] == 0))
   		    {
   		      //G11 Get ! 1 permutation
-		      stringstream g11_code;
-		      g11_code << nodes[v->Node()] << LBL_SEP
+		        stringstream g11_code;
+		        g11_code << nodes[v->Node()] << LBL_SEP
 			       << edges[v->Item()] << LBL_SEP
 			       << stars[i][j].second << LBL_SEP //current neighbour of 4-star
 			       << stars[i][j].first << LBL_SEP
@@ -468,7 +481,7 @@ void TreeletEnumerator::enumerate4StarsGraphs(GNode<Point3d> * star_center, int 
   		      g11_leaves[0] = stars[i][(j+1)%4];
   		      g11_leaves[1] = stars[i][(j+2)%4];
   		      g11_leaves[2] = stars[i][(j+3)%4];
-		      g11_code << LBL_SEP << pairToChar(pairSort(g11_leaves,3),3);
+		        g11_code << LBL_SEP << pairToChar(pairSort(g11_leaves,3),3);
   		      delete [] g11_leaves;
   		      countGraphlet(g11_code.str(),11,1,spectre);
   		    }
