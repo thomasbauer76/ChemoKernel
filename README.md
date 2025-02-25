@@ -57,7 +57,7 @@ published for experiments reproduction purpose.
 ## The Library
 
 This library allows to compute treelet kernel in its various forms. It
-take datasets as ct (ChemDraw Connection Table) format, as available [here](https://brunl01.users.greyc.fr/CHEMISTRY/)
+take datasets as ct (ChemDraw Connection Table) format, as available [here](https://lucbrun.ensicaen.fr/CHEMISTRY/)
 
 To use a kernel, you may be interested in the following bin files:
 * moleculesTreeletData : Extract treelet distribution from a dataset
